@@ -1,7 +1,7 @@
 // German-adapted ZMK keymap for Totem V3
-// NOTE: This is a template adapting your BASE layer to German QWERTZ
-//       and adding German Umlauts (Ä Ö Ü ß). Adjust MT/MO behaviors
-//       to your preference.
+// NOTE: Variant A = German Umlaute via Right-Alt (RA) Compose
+//       ä = RA(A), ö = RA(O), ü = RA(U), ß = RA(S)
+//       Fully compatible with Windows, macOS, Linux.
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
@@ -21,9 +21,9 @@
             label = "BASE (DE QWERTZ)";
             bindings = <
                 // Row 1
-                &kp Q  &kp W  &kp E  &kp R  &kp T      &kp Z  &lt SYM &kp UE  &kp I  &lt SYM &kp OE  &kp P
+                &kp Q  &kp W  &kp E  &kp R  &kp T      &kp Z  &lt SYM &kp RA(U)  &kp I  &lt SYM &kp RA(O)  &kp P
                 // Row 2
-                &lt SYM &kp AE  &lt SYM &kp SS  &kp D  &kp F  &kp G      &kp H  &kp J  &kp K  &kp L  &kp SEMICOLON
+                &lt SYM &kp RA(A)  &lt SYM &kp RA(S)  &kp D  &kp F  &kp G      &kp H  &kp J  &kp K  &kp L  &kp SEMICOLON
                 // Row 3
                 &kp Y  &kp X  &kp C  &kp V  &kp B      &kp N  &kp M  &kp COMMA  &kp DOT  &kp MINUS
                 // Thumbs
@@ -48,12 +48,12 @@
                 &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT    &kp LPAREN &kp RPAREN &kp CARET &kp AMPS &kp EQUAL
 
                 // Row 2 — [] and Umlaute
-                &kp AE &kp OE &kp UE &kp SS &trans             &kp LBRACKET &kp RBRACKET &kp STAR &kp PLUS &kp BSLH
+                &kp RA(A) &kp RA(O) &kp RA(U) &kp RA(S) &trans   &kp LBRACKET &kp RBRACKET &kp STAR &kp PLUS &kp BSLH
 
                 // Row 3 — {} and extended symbols
                 &kp TILDE &kp GRAVE &kp LCBR &kp RCBR &kp PIPE   &kp LT &kp GT &kp SEMICOLON &kp COLON &trans
 
-                // Thumbs — leave mostly neutral
+                // Thumbs — neutral
                 &trans &trans &trans    &trans &trans
             >;
         };
