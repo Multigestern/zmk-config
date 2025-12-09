@@ -1,7 +1,8 @@
-// German-adapted ZMK keymap for Totem V3
-// NOTE: Variant A = German Umlaute via Right-Alt (RA) Compose
-//       ä = RA(A), ö = RA(O), ü = RA(U), ß = RA(S)
-//       Fully compatible with Windows, macOS, Linux.
+/*
+ * German-adapted ZMK keymap for Totem V3
+ * Variant A = German Umlaute via Right-Alt (RA) Compose
+ * ä = RA + A, ö = RA + O, ü = RA + U, ß = RA + S
+ */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
@@ -14,6 +15,21 @@
 #define ADJ  3
 
 / {
+    macros {
+        uml_ae: uml_ae {
+            bindings = <&kp RA &kp A>;
+        };
+        uml_oe: uml_oe {
+            bindings = <&kp RA &kp O>;
+        };
+        uml_ue: uml_ue {
+            bindings = <&kp RA &kp U>;
+        };
+        uml_ss: uml_ss {
+            bindings = <&kp RA &kp S>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -21,59 +37,61 @@
             label = "BASE (DE QWERTZ)";
             bindings = <
                 // Row 1
-                &kp Q  &kp W  &kp E  &kp R  &kp T      &kp Z  &lt SYM U  &kp I  &lt SYM O  &kp P
+                &kp Q  &kp W  &kp E  &kp R  &kp T        &kp Z  &lt SYM U  &kp I  &lt SYM O  &kp P
                 // Row 2
                 &lt SYM A  &lt SYM S  &kp D  &kp F  &kp G      &kp H  &kp J  &kp K  &kp L  &kp SEMICOLON
                 // Row 3
-                &kp Y  &kp X  &kp C  &kp V  &kp B      &kp N  &kp M  &kp COMMA  &kp DOT  &kp MINUS
+                &kp Y  &kp X  &kp C  &kp V  &kp B        &kp N  &kp M  &kp COMMA  &kp DOT  &kp MINUS
                 // Thumbs
                 &kp DELETE  &kp TAB  &kp SPACE   &kp ENTER  &kp BSPC
             >;
         };
 
         nav_layer {
-            label = "NAV (unchanged)";
+            label = "NAV";
             bindings = <
-                &trans &trans &kp UP &trans &trans   &trans &trans &kp N8 &kp N9 &trans
-                &trans &kp LEFT &kp DOWN &kp RIGHT &trans  &trans &kp N4 &kp N5 &kp N6 &trans
-                &trans &trans &kp PG_UP &trans &kp PG_DN  &trans &kp N1 &kp N2 &kp N3 &trans &trans &trans
-                &trans &trans &trans &trans &trans   &kp N0 &trans
+                &trans &trans &kp UP &trans &trans      &trans &trans &kp N8 &kp N9 &trans
+                &trans &kp LEFT &kp DOWN &kp RIGHT &trans    &trans &kp N4 &kp N5 &kp N6 &trans
+                &trans &trans &kp PG_UP &kp PG_DN &trans     &kp N1 &kp N2 &kp N3 &trans &trans
+                &trans &trans &trans    &trans    &kp N0     &trans
             >;
         };
 
         sym_layer {
-            label = "SYM (DE symbols + Umlaute + refined brackets)";
+            label = "SYM";
             bindings = <
                 // Row 1 — () and punctuation
-                &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT    &kp LPAREN &kp RPAREN &kp CARET &kp AMPS &kp EQUAL
+                &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT      &kp LPAREN &kp RPAREN &kp CARET &kp AMPS &kp EQUAL
 
-                // Row 2 — [] and Umlaute
-                &kp RA(A) &kp RA(O) &kp RA(U) &kp RA(S) &trans   &kp LBRACKET &kp RBRACKET &kp STAR &kp PLUS &kp BSLH
+                // Row 2 — [] and Umlaute (macros)
+                &uml_ae &uml_oe &uml_ue &uml_ss &trans          &kp LBRACKET &kp RBRACKET &kp STAR &kp PLUS &kp BSLH
 
                 // Row 3 — {} and extended symbols
                 &kp TILDE &kp GRAVE &kp LCBR &kp RCBR &kp PIPE   &kp LT &kp GT &kp SEMICOLON &kp COLON &trans
 
-                // Thumbs — neutral
+                // Thumbs
                 &trans &trans &trans    &trans &trans
             >;
         };
 
         adjust_layer {
-            label = "ADJ (unchanged)";
+            label = "ADJ";
             bindings = <
-                &sys_reset &bt BT_CLR &out OUT_TOG &trans &trans   &trans &kp F7 &kp F8 &kp F9 &kp F12
-                &bootloader &bt BT_NXT &trans &trans &trans  &trans &kp F4 &kp F5 &kp F6 &kp F11
-                &trans &trans &bt BT_PRV &trans &trans  &trans &kp F1 &kp F2 &kp F3 &kp F10 &trans
+                &sys_reset &bt BT_CLR &out OUT_TOG &trans &trans     &trans &kp F7 &kp F8 &kp F9 &kp F12
+                &bootloader &bt BT_NXT &trans &trans &trans         &trans &kp F4 &kp F5 &kp F6 &kp F11
+                &trans &trans &bt BT_PRV &trans &trans              &trans &kp F1 &kp F2 &kp F3 &kp F10
                 &trans &trans &trans &trans &trans &trans
             >;
-                combos {
-            compatible = "zmk,combos";
+        };
+    };
 
-            enter_combo {
-                timeout-ms = <40>;
-                key-positions = <15 16 17>; // Adjust to actual 3-thumb positions
-                bindings = <&kp ENTER>;
-            };
+    combos {
+        compatible = "zmk,combos";
+
+        enter_combo {
+            timeout-ms = <40>;
+            key-positions = <15 16 17>;  // adjust to your actual thumbs
+            bindings = <&kp ENTER>;
         };
     };
 };
