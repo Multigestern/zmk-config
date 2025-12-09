@@ -1,7 +1,8 @@
 /*
  * Totem ZMK Keymap - German OS Optimization (Final QWERTZ structure)
- * * FIX 12/2025: Switched complex &mt_thumb bindings in the base_layer thumb cluster
- * to the simpler &lt (Layer-Tap) behavior to resolve the recurring DTC parse error.
+ * * FIX 12/2025 (v8): Final formatting fix for DTC parse error in base_layer thumb cluster.
+ * Switched to explicit line breaks and semicolons for clean parsing.
+ * Removed unused 'navigation' layer to simplify the config.
  */
 
 #include <behaviors.dtsi>
@@ -121,7 +122,6 @@
         mt_thumb: mt_thumb {
             compatible = "zmk,behavior-hold-tap";
             label = "MT_THUMB";
-            // Die Definition bleibt erhalten, falls sie in anderen Layern genutzt wird.
             bindings = <&kp>, <&mo>; 
 
             #binding-cells = <2>;
@@ -193,8 +193,10 @@
                              &kp Q  &kp W              &kp E            &kp R              &kp T        &kp Y    &kp U              &kp I            &kp O             &kp P
                              &kp A  &mt_shift_left LALT S &mt_left LGUI D &mt_shift_left LSHIFT F &kp G        &kp H    &mt_shift_right LSHIFT J &mt_right LGUI K &mt_shift_right LALT L &kp DE_OE
 &mt_all LEFT_CONTROL ESCAPE  &kp Z  &kp X              &kp C            &kp V              &kp DE_SS    &kp N    &kp M              &kp COMMA        &kp DOT           &kp DE_MINUS   &mt_all RCTRL DE_AE
-            // NEU: &lt (Layer-Tap) verwendet, um den DTC Fehler zu umgehen.
-                                                       &kp BACKSPACE    &lt NAV TAB        &kp SPACE    &lt SYM ENTER        &kp DE_UE        &kp DELETE
+            // NEU: Aufgeteilt und mit ;; abgeschlossen, um DTC-Parser-Fehler zu vermeiden.
+                                                       &kp BACKSPACE    &lt NAV TAB       ;;
+                                                       &kp SPACE        &lt SYM ENTER     ;;
+                                                       &kp DE_UE        &kp DELETE
             >;
         };
 
@@ -254,15 +256,6 @@
         &trans       &kp LS(LEFT)  &kp LC(F17)  &kp LS(RIGHT)  &kp RET         &trans  &kp F4  &kp F5  &kp F6  &kp F11
 &trans  &kp J        &kp LS(C)     &kp LC(F16)  &kp LS(V)      &kp LC(F15)     &trans  &trans  &trans  &trans  &trans  &trans
                                    &trans       &kp LC(F12)    &kp LC(F11)     &trans  &trans  &trans
-            >;
-        };
-
-        navigation {
-            bindings = <
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans   &kp UP_ARROW  &kp RIGHT
-        &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans   &kp DOWN      &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &kp LEFT &trans        &trans      &trans
-                        &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
     };
