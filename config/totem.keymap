@@ -1,56 +1,65 @@
+/*
+ * Totem ZMK Keymap - German OS Optimization
+ * * Logic: The keyboard sends standard US keycodes.
+ * The German OS interprets them:
+ * - &kp Y becomes Z
+ * - &kp Z becomes Y
+ * - &kp FSLH (/) becomes -
+ * - &kp SEMI (;) becomes Ö
+ * - &kp SQT (') becomes Ä
+ * - &kp LBKT ([) becomes Ü
+ * * Special characters on layers are macro'd to match German AltGr positions.
+ */
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
 
 // -----------------------------------------------------------------------------------------
-// DEFINITIONEN FÜR DEUTSCHES OS LAYOUT (DE_ISO)
-// Diese Definitionen sorgen dafür, dass ZMK die richtigen Signale sendet,
-// damit auf einem auf "Deutsch" eingestellten PC die richtigen Zeichen erscheinen.
+// DEUTSCHE SONDERZEICHEN DEFINITIONEN (MAPPINGS)
+// Diese Definitionen drücken die Tasten, die ein deutsches OS erwartet.
 // -----------------------------------------------------------------------------------------
 
-#define DE_Y       Z       // Z und Y sind vertauscht
-#define DE_Z       Y       // Z und Y sind vertauscht
+// Umlaute & Esszett (Basierend auf US-Tastenpositionen im DE-Layout)
+#define DE_UE      LBKT     // Ü (US Taste [)
+#define DE_OE      SEMI     // Ö (US Taste ;)
+#define DE_AE      SQT      // Ä (US Taste ')
+#define DE_SS      MINUS    // ß (US Taste -)
 
-#define DE_AE      SQT     // Ä ist auf der US-Taste '
-#define DE_OE      SEMI    // Ö ist auf der US-Taste ;
-#define DE_UE      LBKT    // Ü ist auf der US-Taste [
-#define DE_SS      MINUS   // ß ist auf der US-Taste -
+// Klammern (AltGr Kombinationen im DE-Layout)
+#define DE_LBRC    RA(N7)   // {
+#define DE_RBRC    RA(N0)   // }
+#define DE_LBKT    RA(N8)   // [
+#define DE_RBKT    RA(N9)   // ]
+#define DE_LPAR    LS(N8)   // (
+#define DE_RPAR    LS(N9)   // )
 
-#define DE_LBRC    RA(N7)  // { ist AltGr+7
-#define DE_RBRC    RA(N0)  // } ist AltGr+0
-#define DE_LBKT    RA(N8)  // [ ist AltGr+8
-#define DE_RBKT    RA(N9)  // ] ist AltGr+9
-#define DE_LPAR    LS(N8)  // ( ist Shift+8
-#define DE_RPAR    LS(N9)  // ) ist Shift+9
+// Rechenzeichen & Symbole
+#define DE_SLASH   LS(N7)   // / (Shift + 7)
+#define DE_BSLH    RA(MINUS)// \ (AltGr + ß)
+#define DE_AT      RA(Q)    // @ (AltGr + Q)
+#define DE_EURO    RA(E)    // € (AltGr + E)
+#define DE_PIPE    RA(NUBS) // | (AltGr + <) - Falls NUBS nicht geht, RA(NON_US_BSLH) versuchen
+#define DE_TILDE   RA(RBKT) // ~ (AltGr + +)
 
-#define DE_SLASH   LS(N7)  // / ist Shift+7
-#define DE_BSLH    RA(MINUS) // Backslash ist AltGr+ß (Taste -)
-#define DE_AT      RA(Q)   // @ ist AltGr+Q
-#define DE_EURO    RA(E)   // € ist AltGr+E
-#define DE_PIPE    RA(NUBS) // | ist AltGr + < (Taste neben Shift Links) - falls Totem diese Taste hat, sonst RA(NON_US_BSLH)
-#define DE_TILDE   RA(RBKT) // ~ ist AltGr + + (Taste neben Ü)
+#define DE_PLUS    RBKT     // + (Taste ] auf US Layout entspricht + auf DE)
+#define DE_MINUS   FSLH     // - (Taste / auf US Layout entspricht - auf DE)
+#define DE_EQUAL   LS(N0)   // = (Shift + 0)
+#define DE_ASTR    LS(RBKT) // * (Shift + +)
+#define DE_HASH    NUHS     // # (Raute Taste neben Enter)
+#define DE_LT      NUBS     // < (Taste neben Left Shift)
+#define DE_GT      LS(NUBS) // >
 
-#define DE_PLUS    RBKT    // + ist auf der US-Taste ]
-#define DE_MINUS   FSLH    // - ist auf der US-Taste /
-#define DE_ASTR    LS(RBKT)// * ist Shift + + (oder Numpad Multiply)
-#define DE_EQUAL   LS(N0)  // = ist Shift + 0
-#define DE_UNDER   LS(FSLH)// _ ist Shift + - (Taste /)
-
-#define DE_EXCL    LS(N1)  // !
-#define DE_DQUO    LS(N2)  // "
-#define DE_PARA    LS(N3)  // § (Paragraph statt # auf Shift+3)
-#define DE_DLRO    LS(N4)  // $
-#define DE_PERC    LS(N5)  // %
-#define DE_AMPS    LS(N6)  // &
-#define DE_QUOT    LS(NUHS) // ' ist Shift + # (Taste neben Enter) - Auf Totem evtl schwierig, oft alternativ belegt.
-                            // Alternativ: DE_QUOT oft auf Shift + DE_HASH Position.
-                            // Workaround für US-Layout User auf DE: oft ist ' auf Shift+#
-
-#define DE_HASH    NUHS    // # ist die Taste neben Enter
-#define DE_LT      NUBS    // < Taste neben Left Shift
-#define DE_GT      LS(NUBS)// > Taste neben Left Shift
-#define DE_CARET   GRAVE   // ^ Taste links oben (unter ESC)
+// Standard Zeichen verschoben für Layer
+#define DE_EXCL    LS(N1)   // !
+#define DE_DQUO    LS(N2)   // "
+#define DE_PARA    LS(N3)   // §
+#define DE_DLRO    LS(N4)   // $
+#define DE_PERC    LS(N5)   // %
+#define DE_AMPS    LS(N6)   // &
+#define DE_QUOT    LS(NUHS) // ' (Shift + #) - Alternativposition
+#define DE_CARET   GRAVE    // ^ (Taste oben links)
 
 // -----------------------------------------------------------------------------------------
 
@@ -73,13 +82,13 @@
         compatible = "zmk,combos";
 
         dash {
-            bindings = <&kp DE_MINUS>; // Korrigiert für DE
+            bindings = <&kp DE_MINUS>; 
             key-positions = <19 31>;
             timeout-ms = <70>;
         };
 
         tilde_combo {
-            bindings = <&kp DE_TILDE>; // Korrigiert für DE
+            bindings = <&kp DE_TILDE>;
             key-positions = <0 20>;
             timeout-ms = <60>;
             require-prior-idle-ms = <100>;
@@ -199,12 +208,21 @@
 
         base_layer {
             label = "BASE";
-            // Nutzung von DE_Y und DE_Z sorgt für QWERTY Layout auf deutschem OS
+            // ------------------------------------------------------------------------------------------------
+            //  Q    W    E    R    T           Y    U    I    O    P    (Standard US keycodes)
+            //  A    S    D    F    G           H    J    K    L    Ö    (DE_OE ist SEMICOLON)
+            //  Z    X    C    V    B           N    M    ,    .    -    (Standard US ZMK Positionen)
+            //
+            //  HINWEIS: Da dein OS auf Deutsch steht:
+            //  - Drückst du oben rechts &kp Y, erscheint ein Z.
+            //  - Drückst du unten links &kp Z, erscheint ein Y.
+            //  - Neben dem Punkt drückst du &kp FSLH (Slash), erscheint ein - (Bindestrich).
+            // ------------------------------------------------------------------------------------------------
             bindings = <
-                             &kp Q  &kp W              &kp E            &kp R              &kp T        &kp DE_Y &kp U              &kp I            &kp O             &kp P
+                             &kp Q  &kp W              &kp E            &kp R              &kp T        &kp Y    &kp U              &kp I            &kp O             &kp P
                              &kp A  &mt_shift_left LALT S &mt_left LGUI D &mt_shift_left LSHIFT F &kp G        &kp H    &mt_shift_right LSHIFT J &mt_right LGUI K &mt_shift_right LALT L &kp DE_OE
-&mt_all LEFT_CONTROL ESCAPE  &kp DE_Z  &kp X              &kp C            &kp V              &kp B        &kp N    &kp M              &kp COMMA        &kp DOT           &kp DE_SLASH   &mt_all RCTRL DE_AE
-                                                       &kp BACKSPACE    &lt NAV DE_MINUS       &kp SPACE    &kp TAB  &lt SYM DE_UE            &kp DELETE
+&mt_all LEFT_CONTROL ESCAPE  &kp Z  &kp X              &kp C            &kp V              &kp B        &kp N    &kp M              &kp COMMA        &kp DOT           &kp DE_MINUS   &mt_all RCTRL DE_AE
+                                                       &kp BACKSPACE    &lt NAV DE_SS      &kp SPACE    &kp TAB  &lt SYM DE_UE      &kp DELETE
             >;
         };
 
@@ -212,7 +230,7 @@
 
         nav_layer {
             label = "NAVI";
-            // Angepasst auf DE Definitionen (Klammern, Mathezeichen)
+            // Hier nutzen wir die DE_ Definitionen, damit bei [ auch wirklich [ kommt (AltGr+8)
             bindings = <
            &kp DE_CARET   &kp DE_UNDER    &kp UP      &kp DE_PLUS     &kp DE_LBRC  &kp DE_RBRC  &kp N7    &kp N8    &kp N9    &kp DE_EQUAL
            &trans         &kp LEFT_ARROW  &kp DOWN    &kp RIGHT_ARROW &kp DE_LBKT  &kp DE_RBKT  &kp N4    &kp N5    &kp N6    &kp DE_MINUS
@@ -225,10 +243,10 @@
 
         sim_layer {
             label = "SYM";
-            // Sonderzeichen (At, Hash) und fehlende Umlaute korrigiert
+            // Fehlende Zeichen und Umlaute ergänzt
             bindings = <
-        &kp DE_EXCL  &kp DE_AT &kp DE_HASH &kp DE_DLRO &kp DE_PERC             &kp DE_CARET &kp DE_AMPS      &kp DE_UE     &kp DE_BSLH   &kp DE_DQUO
-        &kp DE_AE    &trans    &kp DE_SS   &trans      &trans                  &kp C_MUTE   &kp DE_EURO      &trans        &trans        &kp DE_OE
+        &kp DE_EXCL  &kp DE_AT &kp DE_HASH &kp DE_DLRO &kp DE_PERC             &kp DE_CARET &kp DE_AMPS      &kp DE_ASTR   &kp DE_BSLH   &kp DE_DQUO
+        &kp DE_AE    &kp DE_OE &kp DE_UE   &kp DE_SS   &trans                  &kp C_MUTE   &kp DE_EURO      &trans        &kp DE_SLASH  &kp DE_OE
 &trans  &kp RA(F18)  &trans    &trans      &kp C_BRI_DEC &kp C_BRIGHTNESS_INC  &kp C_VOL_DN &kp C_VOL_UP     &kp C_PREV    &kp C_NEXT    &kp DE_PIPE    &trans
                                &trans      &trans      &mo ADJ                 &trans       &kp C_PP         &trans
             >;
@@ -246,9 +264,8 @@
             >;
         };
 
-        // TVP Layers unverändert gelassen, da diese vermutlich spezifische Shortcuts sind.
-        // Falls Shortcuts wie STRG+Z dabei sind, müssten wir auch hier DE_Z nutzen!
-        // Ich passe unten nur Z/Y bei Shortcuts an, falls offensichtlich.
+        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+        // TVP Layer (Shortcuts gelassen, nur Y/Z Logik beachtet falls nötig)
 
         tvp1_layer {
             label = "TVP 1";
