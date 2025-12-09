@@ -1,8 +1,7 @@
-/*
- * German-adapted ZMK keymap for Totem V3
- * Variant A = German Umlaute via Right-Alt (RA) Compose
- * ä = RA + A, ö = RA + O, ü = RA + U, ß = RA + S
- */
+// German-adapted ZMK keymap for Totem V3
+// NOTE: Variant A = German Umlaute via Right-Alt (RA) Compose
+//       ä = RA(A), ö = RA(O), ü = RA(U), ß = RA(S)
+//       Fully compatible with Windows, macOS, Linux.
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
@@ -13,23 +12,10 @@
 #define NAV  1
 #define SYM  2
 #define ADJ  3
+#define TVP1 4
+#define TVP2 5
 
 / {
-    macros {
-        uml_ae: uml_ae {
-            bindings = <&kp RA &kp A>;
-        };
-        uml_oe: uml_oe {
-            bindings = <&kp RA &kp O>;
-        };
-        uml_ue: uml_ue {
-            bindings = <&kp RA &kp U>;
-        };
-        uml_ss: uml_ss {
-            bindings = <&kp RA &kp S>;
-        };
-    };
-
     keymap {
         compatible = "zmk,keymap";
 
@@ -37,61 +23,77 @@
             label = "BASE (DE QWERTZ)";
             bindings = <
                 // Row 1
-                &kp Q  &kp W  &kp E  &kp R  &kp T        &kp Z  &lt SYM U  &kp I  &lt SYM O  &kp P
+                &kp Q  &kp W  &kp E  &kp R  &kp T      &kp Z  &kp U  &kp I  &kp O  &kp P
                 // Row 2
-                &lt SYM A  &lt SYM S  &kp D  &kp F  &kp G      &kp H  &kp J  &kp K  &kp L  &kp SEMICOLON
+                &kp A  &kp S  &kp D  &kp F  &kp G      &kp H  &kp J  &kp K  &kp L  &kp SEMICOLON
                 // Row 3
-                &kp Y  &kp X  &kp C  &kp V  &kp B        &kp N  &kp M  &kp COMMA  &kp DOT  &kp MINUS
+                &kp Y  &kp X  &kp C  &kp V  &kp B      &kp N  &kp M  &kp COMMA  &kp DOT  &kp MINUS
                 // Thumbs
-                &kp DELETE  &kp TAB  &kp SPACE   &kp ENTER  &kp BSPC
+                &kp DELETE  &kp TAB  &kp SPACE  &kp ENTER  &kp BSPC
             >;
         };
 
         nav_layer {
-            label = "NAV";
+            label = "NAV (DE symbols)";
             bindings = <
-                &trans &trans &kp UP &trans &trans      &trans &trans &kp N8 &kp N9 &trans
-                &trans &kp LEFT &kp DOWN &kp RIGHT &trans    &trans &kp N4 &kp N5 &kp N6 &trans
-                &trans &trans &kp PG_UP &kp PG_DN &trans     &kp N1 &kp N2 &kp N3 &trans &trans
-                &trans &trans &trans    &trans    &kp N0     &trans
+                &trans  &trans  &kp UP      &trans  &trans      &trans  &trans  &kp 8    &kp 9     &trans
+                &trans  &kp LEFT &kp DOWN    &kp RIGHT &trans     &trans  &kp 4    &kp 5     &kp 6    &trans
+                &trans  &trans  &kp PAGE_UP  &trans  &kp PAGE_DOWN &trans  &kp 1    &kp 2     &kp 3    &trans &trans &trans
+                &trans  &trans  &trans       &trans  &trans      &kp 0   &trans
             >;
         };
 
         sym_layer {
-            label = "SYM";
+            label = "SYM (DE symbols + Umlaute)";
             bindings = <
-                // Row 1 — () and punctuation
-                &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT      &kp LPAREN &kp RPAREN &kp CARET &kp AMPS &kp EQUAL
-
-                // Row 2 — [] and Umlaute (macros)
-                &uml_ae &uml_oe &uml_ue &uml_ss &trans          &kp LBRACKET &kp RBRACKET &kp STAR &kp PLUS &kp BSLH
-
-                // Row 3 — {} and extended symbols
-                &kp TILDE &kp GRAVE &kp LCBR &kp RCBR &kp PIPE   &kp LT &kp GT &kp SEMICOLON &kp COLON &trans
-
+                // Row 1 — ! " § $ % & / ( ) =
+                &kp EXCL    &kp DQT   &kp SECTION &kp DLLR  &kp PRCNT    &kp AMPS  &kp SLASH &kp LPAR &kp RPAR &kp EQUAL
+                // Row 2 — ä ö ü ß and brackets
+                &kp RA(A)   &kp RA(O) &kp RA(U) &kp RA(S) &trans     &kp LBRACKET &kp RBRACKET &kp STAR &kp PLUS &kp BSLH
+                // Row 3 — {} ~ ^ < >
+                &kp LCBR    &kp RCBR  &kp TILDE &kp CARET &kp LT      &kp GT   &kp MINUS &kp UNDERSCORE &kp COLON &kp SEMICOLON
                 // Thumbs
-                &trans &trans &trans    &trans &trans
+                &trans &trans &trans &trans &trans
             >;
         };
 
         adjust_layer {
             label = "ADJ";
             bindings = <
-                &sys_reset &bt BT_CLR &out OUT_TOG &trans &trans     &trans &kp F7 &kp F8 &kp F9 &kp F12
-                &bootloader &bt BT_NXT &trans &trans &trans         &trans &kp F4 &kp F5 &kp F6 &kp F11
-                &trans &trans &bt BT_PRV &trans &trans              &trans &kp F1 &kp F2 &kp F3 &kp F10
-                &trans &trans &trans &trans &trans &trans
+                &sys_reset  &bt BT_CLR  &out OUT_TOG  &trans &trans  &trans  &kp F7 &kp F8 &kp F9 &kp F12
+                &bootloader &bt BT_NXT  &trans       &trans &trans  &trans  &kp F4 &kp F5 &kp F6 &kp F11
+                &trans      &trans      &bt BT_PRV    &trans &trans  &trans  &kp F1 &kp F2 &kp F3 &kp F10 &trans
+                &trans      &trans      &trans        &trans &trans  &trans
             >;
         };
-    };
 
-    combos {
-        compatible = "zmk,combos";
+        tvp1_layer {
+            label = "TVP 1";
+            bindings = <
+                &kp TAB     &kp I      &kp LC(LALT) &kp O &kp LC(F20) &none &none &none &none &none
+                &lt TVP2 L  &kp LEFT   &kp LALT     &kp RIGHT &kp SPACE &none &none &none &none &none
+                &kp J       &kp LSHIFT &kp LC(C)    &kp BSPC  &kp LC(V) &kp LC(F19) &none &none &none &none &none &none
+                &trans      &kp LC(F14)&kp LC(F13) &none &none &none
+            >;
+        };
 
-        enter_combo {
-            timeout-ms = <40>;
-            key-positions = <15 16 17>;  // adjust to your actual thumbs
-            bindings = <&kp ENTER>;
+        tvp2_layer {
+            label = "TVP 2";
+            bindings = <
+                &kp LC(F18) &kp LS(I) &kp LS(HOME) &kp LS(O) &kp LS(F) &trans &kp F7 &kp F8 &kp F9 &kp F12
+                &trans      &kp LS(LEFT) &kp LC(F17) &kp LS(RIGHT) &kp RET &trans &kp F4 &kp F5 &kp F6 &kp F11
+                &trans      &kp J &kp LS(C) &kp LC(F16) &kp LS(V) &kp LC(F15) &trans &kp F1 &kp F2 &kp F3 &kp F10 &trans
+                &trans      &kp LC(F12) &kp LC(F11) &trans &trans &trans
+            >;
+        };
+
+        navigation {
+            bindings = <
+                &trans &trans &trans &trans &trans &trans &trans &trans &kp UP &kp RIGHT
+                &trans &trans &trans &trans &trans &trans &trans &trans &kp DOWN &trans
+                &trans &trans &trans &trans &trans &trans &trans &trans &kp LEFT &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans
+            >;
         };
     };
 };
