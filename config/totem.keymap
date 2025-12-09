@@ -3,12 +3,13 @@
  * * FIX 12/2025: Removed parentheses from (TAB) and (ENTER) in base_layer thumb definitions
  * to resolve the repeated DTC parse error. The syntax `&mt_thumb KEY LAYER` is correct 
  * for the definition `bindings = <&kp>, <&mo>;`.
+ * * FIX: Corrected fatal typo in #include statement: outputs.h.h -> outputs.h
  */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/outputs.h.h>
+#include <dt-bindings/zmk/outputs.h> // <- Korrigiert: outputs.h.h entfernt
 
 // -----------------------------------------------------------------------------------------
 // DEUTSCHE SONDERZEICHEN DEFINITIONEN (AltGr Mappings für Layer)
@@ -190,12 +191,10 @@
 
         base_layer {
             label = "BASE";
-            // Line 204
             bindings = <
                              &kp Q  &kp W              &kp E            &kp R              &kp T        &kp Y    &kp U              &kp I            &kp O             &kp P
                              &kp A  &mt_shift_left LALT S &mt_left LGUI D &mt_shift_left LSHIFT F &kp G        &kp H    &mt_shift_right LSHIFT J &mt_right LGUI K &mt_shift_right LALT L &kp DE_OE
 &mt_all LEFT_CONTROL ESCAPE  &kp Z  &kp X              &kp C            &kp V              &kp DE_SS    &kp N    &kp M              &kp COMMA        &kp DOT           &kp DE_MINUS   &mt_all RCTRL DE_AE
-            // Line 206 (Fehlerzone)
                                                        &kp BACKSPACE    &mt_thumb TAB NAV  &kp SPACE    &mt_thumb ENTER SYM  &kp DE_UE        &kp DELETE
             >;
         };
