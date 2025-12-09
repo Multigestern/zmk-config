@@ -1,8 +1,7 @@
 /*
  * Totem ZMK Keymap - German OS Optimization (Final QWERTZ structure)
- * * FIX 12/2025 (v8): Final formatting fix for DTC parse error in base_layer thumb cluster.
- * Switched to explicit line breaks and semicolons for clean parsing.
- * Removed unused 'navigation' layer to simplify the config.
+ * * FIX 12/2025 (v9): Final formatting fix for DTC parse error in base_layer thumb cluster.
+ * Removed explicit ';;' line endings and ensured alignment for clearer key separation.
  */
 
 #include <behaviors.dtsi>
@@ -193,9 +192,9 @@
                              &kp Q  &kp W              &kp E            &kp R              &kp T        &kp Y    &kp U              &kp I            &kp O             &kp P
                              &kp A  &mt_shift_left LALT S &mt_left LGUI D &mt_shift_left LSHIFT F &kp G        &kp H    &mt_shift_right LSHIFT J &mt_right LGUI K &mt_shift_right LALT L &kp DE_OE
 &mt_all LEFT_CONTROL ESCAPE  &kp Z  &kp X              &kp C            &kp V              &kp DE_SS    &kp N    &kp M              &kp COMMA        &kp DOT           &kp DE_MINUS   &mt_all RCTRL DE_AE
-            // NEU: Aufgeteilt und mit ;; abgeschlossen, um DTC-Parser-Fehler zu vermeiden.
-                                                       &kp BACKSPACE    &lt NAV TAB       ;;
-                                                       &kp SPACE        &lt SYM ENTER     ;;
+            // NEU: Aufteilung OHNE die fehlerhaften ;; und mit klarer Trennung der Tasten.
+                                                       &kp BACKSPACE    &lt NAV TAB
+                                                       &kp SPACE        &lt SYM ENTER
                                                        &kp DE_UE        &kp DELETE
             >;
         };
