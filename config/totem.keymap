@@ -10,6 +10,8 @@
  * - &kp LBKT ([) becomes Ü
  * - &kp MINUS (-) becomes ß (DE_SS)
  * * Special characters on layers are macro'd to match German AltGr positions.
+ *
+ * FIX 12/2025: Replaced problematic `&lt NAV TAB` with `&mt_thumb TAB NAV` to resolve DTC parse error.
  */
 
 #include <behaviors.dtsi>
@@ -19,11 +21,9 @@
 
 // -----------------------------------------------------------------------------------------
 // DEUTSCHE SONDERZEICHEN DEFINITIONEN (AltGr Mappings für Layer)
-// Diese DEFINITIONEN MÜSSEN im Code bleiben, um auf den Layern z.B. [ ] zu tippen.
 // -----------------------------------------------------------------------------------------
 
 // Klammern (AltGr Kombinationen im DE-Layout)
-// Achtung: Das deutsche OS erwartet HIER die QWERTZ Tasten-Codes
 #define DE_LBRC    RA(N7)   // {   (AltGr + 7)
 #define DE_RBRC    RA(N0)   // }   (AltGr + 0)
 #define DE_LBKT    RA(N8)   // [   (AltGr + 8)
@@ -44,7 +44,7 @@
 #define DE_EXCL    LS(N1)   // !
 #define DE_DQUO    LS(N2)   // "
 
-// Für die Base Layer verwenden wir die US-Codes, damit das DE-OS die Umlaute macht
+// Base Layer Mappings (senden US-Codes, damit DE OS QWERTZ Umlaute macht)
 #define DE_OE      SEMI     // ; -> Ö (Pinky Home Row)
 #define DE_AE      SQT      // ' -> Ä (Pinky Bottom Row)
 #define DE_UE      LBKT     // [ -> Ü (Neue Position)
@@ -73,7 +73,7 @@
 
         dash {
             bindings = <&kp DE_MINUS>; 
-            key-positions = <29 30>; // Right pinky bottom two keys (minus/ä)
+            key-positions = <29 30>;
             timeout-ms = <70>;
         };
 
@@ -131,7 +131,7 @@
         mt_thumb: mt_thumb {
             compatible = "zmk,behavior-hold-tap";
             label = "MT_THUMB";
-            bindings = <&kp>, <&kp>;
+            bindings = <&kp>, <&mo>; // Wichtig: Tap ist &kp, Hold ist &mo (Layer)
 
             #binding-cells = <2>;
             quick-tap-ms = <220>;
@@ -199,15 +199,13 @@
         base_layer {
             label = "BASE";
             // ------------------------------------------------------------------------------------------------
-            //  Q    W    E    R    T           Z    U    I    O    P    (Visuelles US Layout, ergibt QWERTZ)
-            //  A    S    D    F    G           H    J    K    L    Ö    (&kp SEMI ergibt Ö)
-            //  Y    X    C    V    ß           N    M    ,    .    -    (&kp MINUS ergibt ß, &kp FSLH ergibt -)
+            // ß und Ü sind auf die untere Reihe und den Daumen gewandert, B ist auf NAV Layer
             // ------------------------------------------------------------------------------------------------
             bindings = <
                              &kp Q  &kp W              &kp E            &kp R              &kp T        &kp Y    &kp U              &kp I            &kp O             &kp P
                              &kp A  &mt_shift_left LALT S &mt_left LGUI D &mt_shift_left LSHIFT F &kp G        &kp H    &mt_shift_right LSHIFT J &mt_right LGUI K &mt_shift_right LALT L &kp DE_OE
 &mt_all LEFT_CONTROL ESCAPE  &kp Z  &kp X              &kp C            &kp V              &kp DE_SS    &kp N    &kp M              &kp COMMA        &kp DOT           &kp DE_MINUS   &mt_all RCTRL DE_AE
-                                                       &kp BACKSPACE    &lt NAV TAB        &kp SPACE    &lt SYM ENTER  &kp DE_UE        &kp DELETE
+                                                       &kp BACKSPACE    &mt_thumb TAB NAV    &kp SPACE    &mt_thumb ENTER SYM  &kp DE_UE        &kp DELETE
             >;
         };
 
@@ -215,7 +213,7 @@
 
         nav_layer {
             label = "NAVI";
-            // [ ] { } etc. werden über die korrekten AltGr Codes getippt
+            // B auf die Top Left Pinky Position verschoben
             bindings = <
            &kp B          &kp DE_UNDER    &kp UP      &kp DE_PLUS     &kp DE_LBRC  &kp DE_RBRC  &kp N7    &kp N8    &kp N9    &kp EQUAL
            &trans         &kp LEFT_ARROW  &kp DOWN    &kp RIGHT_ARROW &kp DE_LBKT  &kp DE_RBKT  &kp N4    &kp N5    &kp N6    &kp DE_MINUS
@@ -228,7 +226,6 @@
 
         sim_layer {
             label = "SYM";
-            // Beseitigt den Fehler RA(F18) und fügt korrigierte Zeichen ein
             bindings = <
         &kp DE_EXCL  &kp DE_AT &kp DE_HASH &kp DE_DLRO &kp DE_PERC             &kp GRAVE    &kp DE_AMPS      &kp DE_ASTR   &kp DE_BSLH   &kp DE_DQUO
         &kp DE_AE    &kp DE_OE &kp DE_UE   &kp DE_SS   &trans                  &kp C_MUTE   &kp DE_EURO      &trans        &kp DE_SLASH  &kp DE_OE
