@@ -1,17 +1,7 @@
 /*
  * Totem ZMK Keymap - German OS Optimization (Final QWERTZ structure)
- * * Logic: The keyboard sends standard US keycodes.
- * The German OS interprets them to create the QWERTZ base layer:
- * - &kp Y becomes Z
- * - &kp Z becomes Y
- * - &kp FSLH (/) becomes - (DE_MINUS)
- * - &kp SEMI (;) becomes Ö
- * - &kp SQT (') becomes Ä
- * - &kp LBKT ([) becomes Ü
- * - &kp MINUS (-) becomes ß (DE_SS)
- * * Special characters on layers are macro'd to match German AltGr positions.
- *
- * FIX 12/2025: Replaced problematic `&lt NAV TAB` with `&mt_thumb TAB NAV` to resolve DTC parse error.
+ * * FIX 12/2025: Added parentheses around TAP keycodes (TAB, ENTER) in the base_layer 
+ * thumb definitions to resolve the DTC parse error in Zephyr.
  */
 
 #include <behaviors.dtsi>
@@ -198,22 +188,20 @@
 
         base_layer {
             label = "BASE";
-            // ------------------------------------------------------------------------------------------------
-            // ß und Ü sind auf die untere Reihe und den Daumen gewandert, B ist auf NAV Layer
-            // ------------------------------------------------------------------------------------------------
+            // Zeile 217 (ursprüngliche Zeile der Base Layer)
             bindings = <
                              &kp Q  &kp W              &kp E            &kp R              &kp T        &kp Y    &kp U              &kp I            &kp O             &kp P
                              &kp A  &mt_shift_left LALT S &mt_left LGUI D &mt_shift_left LSHIFT F &kp G        &kp H    &mt_shift_right LSHIFT J &mt_right LGUI K &mt_shift_right LALT L &kp DE_OE
 &mt_all LEFT_CONTROL ESCAPE  &kp Z  &kp X              &kp C            &kp V              &kp DE_SS    &kp N    &kp M              &kp COMMA        &kp DOT           &kp DE_MINUS   &mt_all RCTRL DE_AE
-                                                       &kp BACKSPACE    &mt_thumb TAB NAV    &kp SPACE    &mt_thumb ENTER SYM  &kp DE_UE        &kp DELETE
+                                                       &kp BACKSPACE    &mt_thumb (TAB) NAV  &kp SPACE    &mt_thumb (ENTER) SYM  &kp DE_UE        &kp DELETE
             >;
         };
+        // Zeile 218 ist nun die erste Zeile der nav_layer Definition
 
         // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 
         nav_layer {
             label = "NAVI";
-            // B auf die Top Left Pinky Position verschoben
             bindings = <
            &kp B          &kp DE_UNDER    &kp UP      &kp DE_PLUS     &kp DE_LBRC  &kp DE_RBRC  &kp N7    &kp N8    &kp N9    &kp EQUAL
            &trans         &kp LEFT_ARROW  &kp DOWN    &kp RIGHT_ARROW &kp DE_LBKT  &kp DE_RBKT  &kp N4    &kp N5    &kp N6    &kp DE_MINUS
