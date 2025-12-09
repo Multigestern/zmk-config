@@ -60,6 +60,7 @@
 #define DE_AMPS    LS(N6)   // &
 #define DE_QUOT    LS(NUHS) // ' (Shift + #) - Alternativposition
 #define DE_CARET   GRAVE    // ^ (Taste oben links)
+#define DE_UNDER   LS(MINUS)// _ (Shift + ß)
 
 // -----------------------------------------------------------------------------------------
 
@@ -136,7 +137,7 @@
             require-prior-idle-ms = <50>;
             hold-trigger-on-release;
             hold-trigger-key-positions = <0 1 4 10 11 12 13 14 20 21 22 23 24 25 2 35 36 37 3 32 33 34>;
-        };
+            };
 
         mt_thumb: mt_thumb {
             compatible = "zmk,behavior-hold-tap";
@@ -209,14 +210,7 @@
         base_layer {
             label = "BASE";
             // ------------------------------------------------------------------------------------------------
-            //  Q    W    E    R    T           Y    U    I    O    P    (Standard US keycodes)
-            //  A    S    D    F    G           H    J    K    L    Ö    (DE_OE ist SEMICOLON)
-            //  Z    X    C    V    B           N    M    ,    .    -    (Standard US ZMK Positionen)
-            //
-            //  HINWEIS: Da dein OS auf Deutsch steht:
-            //  - Drückst du oben rechts &kp Y, erscheint ein Z.
-            //  - Drückst du unten links &kp Z, erscheint ein Y.
-            //  - Neben dem Punkt drückst du &kp FSLH (Slash), erscheint ein - (Bindestrich).
+            // HINWEIS: &kp Y wird zu Z, &kp Z wird zu Y auf DE OS (QWERTZ)
             // ------------------------------------------------------------------------------------------------
             bindings = <
                              &kp Q  &kp W              &kp E            &kp R              &kp T        &kp Y    &kp U              &kp I            &kp O             &kp P
@@ -243,11 +237,11 @@
 
         sim_layer {
             label = "SYM";
-            // Fehlende Zeichen und Umlaute ergänzt
+            // Fehlende Zeichen und Umlaute ergänzt. Fehlerhafte RA(F18) entfernt.
             bindings = <
         &kp DE_EXCL  &kp DE_AT &kp DE_HASH &kp DE_DLRO &kp DE_PERC             &kp DE_CARET &kp DE_AMPS      &kp DE_ASTR   &kp DE_BSLH   &kp DE_DQUO
         &kp DE_AE    &kp DE_OE &kp DE_UE   &kp DE_SS   &trans                  &kp C_MUTE   &kp DE_EURO      &trans        &kp DE_SLASH  &kp DE_OE
-&trans  &kp RA(F18)  &trans    &trans      &kp C_BRI_DEC &kp C_BRIGHTNESS_INC  &kp C_VOL_DN &kp C_VOL_UP     &kp C_PREV    &kp C_NEXT    &kp DE_PIPE    &trans
+&trans  &trans       &trans    &trans      &kp C_BRI_DEC &kp C_BRIGHTNESS_INC  &kp C_VOL_DN &kp C_VOL_UP     &kp C_PREV    &kp C_NEXT    &kp DE_PIPE    &trans
                                &trans      &trans      &mo ADJ                 &trans       &kp C_PP         &trans
             >;
         };
@@ -265,15 +259,15 @@
         };
 
         // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-        // TVP Layer (Shortcuts gelassen, nur Y/Z Logik beachtet falls nötig)
+        // TVP Layer (Fehlende Daumentasten (&trans) ergänzt)
 
         tvp1_layer {
             label = "TVP 1";
             bindings = <
-       &kp TAB     &kp I      &kp LC(LALT) &kp O        &kp LC(F20)    &none  &none  &none  &none  &none
-       &lt TVP2 L  &kp LEFT   &kp LALT     &kp RIGHT    &kp SPACE      &none  &none  &none  &none  &none
-&kp J  &kp LSHFT   &kp LC(C)  &kp BSPC     &kp LC(V)    &kp LC(F19)    &none  &none  &none  &none  &none  &none
-                              &trans       &kp LC(F14)  &kp LC(F13)    &none  &none  &none
+       &kp TAB     &kp I      &kp LC(LALT) &kp O        &kp LC(F20)    &trans  &none  &none  &none  &none
+       &lt TVP2 L  &kp LEFT   &kp LALT     &kp RIGHT    &kp SPACE      &trans  &none  &none  &none  &none
+&kp J  &kp LSHFT   &kp LC(C)  &kp BSPC     &kp LC(V)    &kp LC(F19)    &trans  &trans  &trans  &trans  &trans  &trans
+                              &trans       &kp LC(F14)  &kp LC(F13)    &trans  &trans  &trans
             >;
         };
 
@@ -282,7 +276,7 @@
             bindings = <
         &kp LC(F18)  &kp LS(I)     &kp LS(HOME) &kp LS(O)      &kp LS(F)       &trans  &kp F7  &kp F8  &kp F9  &kp F12
         &trans       &kp LS(LEFT)  &kp LC(F17)  &kp LS(RIGHT)  &kp RET         &trans  &kp F4  &kp F5  &kp F6  &kp F11
-&trans  &kp J        &kp LS(C)     &kp LC(F16)  &kp LS(V)      &kp LC(F15)     &trans  &kp F1  &kp F2  &kp F3  &kp F10  &trans
+&trans  &kp J        &kp LS(C)     &kp LC(F16)  &kp LS(V)      &kp LC(F15)     &trans  &trans  &trans  &trans  &trans  &trans
                                    &trans       &kp LC(F12)    &kp LC(F11)     &trans  &trans  &trans
             >;
         };
