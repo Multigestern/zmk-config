@@ -1,15 +1,13 @@
 /*
  * Totem ZMK Keymap - German OS Optimization (Final QWERTZ structure)
- * * FIX 12/2025: Removed parentheses from (TAB) and (ENTER) in base_layer thumb definitions
- * to resolve the repeated DTC parse error. The syntax `&mt_thumb KEY LAYER` is correct 
- * for the definition `bindings = <&kp>, <&mo>;`.
- * * FIX: Corrected fatal typo in #include statement: outputs.h.h -> outputs.h
+ * * FIX 12/2025: Switched complex &mt_thumb bindings in the base_layer thumb cluster
+ * to the simpler &lt (Layer-Tap) behavior to resolve the recurring DTC parse error.
  */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/outputs.h> // <- Korrigiert: outputs.h.h entfernt
+#include <dt-bindings/zmk/outputs.h>
 
 // -----------------------------------------------------------------------------------------
 // DEUTSCHE SONDERZEICHEN DEFINITIONEN (AltGr Mappings für Layer)
@@ -123,7 +121,7 @@
         mt_thumb: mt_thumb {
             compatible = "zmk,behavior-hold-tap";
             label = "MT_THUMB";
-            // Hold Behavior ist &mo (Momentary Layer)
+            // Die Definition bleibt erhalten, falls sie in anderen Layern genutzt wird.
             bindings = <&kp>, <&mo>; 
 
             #binding-cells = <2>;
@@ -195,7 +193,8 @@
                              &kp Q  &kp W              &kp E            &kp R              &kp T        &kp Y    &kp U              &kp I            &kp O             &kp P
                              &kp A  &mt_shift_left LALT S &mt_left LGUI D &mt_shift_left LSHIFT F &kp G        &kp H    &mt_shift_right LSHIFT J &mt_right LGUI K &mt_shift_right LALT L &kp DE_OE
 &mt_all LEFT_CONTROL ESCAPE  &kp Z  &kp X              &kp C            &kp V              &kp DE_SS    &kp N    &kp M              &kp COMMA        &kp DOT           &kp DE_MINUS   &mt_all RCTRL DE_AE
-                                                       &kp BACKSPACE    &mt_thumb TAB NAV  &kp SPACE    &mt_thumb ENTER SYM  &kp DE_UE        &kp DELETE
+            // NEU: &lt (Layer-Tap) verwendet, um den DTC Fehler zu umgehen.
+                                                       &kp BACKSPACE    &lt NAV TAB        &kp SPACE    &lt SYM ENTER        &kp DE_UE        &kp DELETE
             >;
         };
 
