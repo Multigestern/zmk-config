@@ -213,8 +213,8 @@
             label = "NAV / NUM";
             bindings = <
                 &kp DE_CARET  &kp DE_PERCENT  &kp UP  &kp DE_HASH  &kp DE_TILDE    &kp N7  &kp N8  &kp N9  &kp DE_ASTR  &trans
-                &trans  &kp LEFT_ARROW  &kp DOWN  &kp RIGHT_ARROW  &kp DE_PLUS      &kp N4  &kp N5  &kp N6  &kp DE_MINUS  &trans
-                &trans  &trans  &kp PG_UP  &kp DOWN  &kp PG_DN      &kp N1  &kp N2  &kp N3  &kp DE_EQUAL  &trans
+                &trans  &kp LEFT  &kp DOWN  &kp RIGHT  &kp DE_PLUS      &kp N4  &kp N5  &kp N6  &kp DE_MINUS  &trans
+                &trans  &trans  &kp PG_UP  &kp PG_DN  &trans      &kp N1  &kp N2  &kp N3  &kp DE_EQUAL  &trans
                 &trans  &trans  &trans    &kp PERIOD  &kp COMMA  &kp KP_DOT
             >;
         };
