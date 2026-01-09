@@ -208,10 +208,10 @@
         nav_layer {
             label = "NAV / NUM";
             bindings = <
-                &trans  &trans  &kp UP  &trans  &trans    &kp DE_LBRC  &kp DE_RBRC  &kp N7  &kp N8  &kp N9
-                &trans  &kp LEFT  &kp DOWN  &kp RIGHT  &trans      &kp DE_LBKT  &kp DE_RBKT  &kp N4  &kp N5  &kp N6
-                &trans  &trans  &kp PG_UP  &trans  &kp PG_DN      &kp DE_LPAR  &kp DE_RPAR  &kp N1  &kp N2  &kp N3
-                &trans  &trans  &trans    &kp PERIOD  &kp COMMA  &kp KP_DOT
+                &trans  &trans  &trans  &kp UP  &trans    &trans  &trans  &kp N7  &kp N8  &kp N9
+                &trans  &trans  &kp LEFT  &kp DOWN  &kp RIGHT      &kp DE_LBKT  &kp DE_RBKT  &kp N4  &kp N5  &kp N6
+                &trans  &trans  &kp PG_UP  &trans  &kp PG_DN      &trans  &trans  &kp N1  &kp N2  &kp N3
+                &trans  &trans  &kp N0    &kp PERIOD  &kp COMMA  &kp KP_DOT
             >;
         };
 
