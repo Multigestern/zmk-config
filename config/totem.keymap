@@ -37,24 +37,10 @@
 // MATHEMATISCHE ZEICHEN (Math & Operators)
 #define DE_PLUS    RBKT          // +
 #define DE_MINUS   FSLH          // -
-#define DE_EQUAL   LS(N0)        // =
-#define DE_ASTR    LS(RBKT)      // *
-#define DE_SLASH   LS(N7)        // /
-#define DE_BSLH    RA(MINUS)     // \
-#define DE_PERCENT LS(N5)        // %
 
 // SONDERZEICHEN (Special Characters)
-#define DE_EXCL    LS(N1)        // !
-#define DE_DQUO    LS(N2)        // "
-#define DE_PARA    LS(N3)        // §
-#define DE_DLRO    LS(N4)        // $
-#define DE_AMPS    LS(N6)        // &
-#define DE_APOS    LS(NUHS)      // '
 #define DE_CARET   GRAVE         // ^
 #define DE_TILDE   RA(RBKT)      // ~
-#define DE_AT      RA(Q)         // @
-#define DE_EURO    RA(E)         // €
-#define DE_PIPE    RA(NUBS)      // |
 #define DE_HASH    NUHS          // #
 #define DE_LT      NUBS          // <
 #define DE_GT      LS(NUBS)      // >
@@ -222,10 +208,10 @@
         sim_layer {
             label = "SYM";
             bindings = <
-                &kp DE_EXCL  &kp DE_AT  &kp DE_HASH  &kp DE_DLRO  &kp DE_PERCENT    &trans  &trans  &trans  &trans  &kp DE_DQUO
+                &trans  &trans  &kp DE_HASH  &trans  &trans    &trans  &trans  &trans  &trans  &trans
                 &kp DE_LBKT  &kp DE_RBKT  &kp DE_LPAR  &kp DE_RPAR  &kp DE_LBRC       &kp DE_RBRC  &trans  &trans  &trans  &trans
                 &trans  &kp C_BRI_DEC  &kp C_VOL_DN  &kp C_VOL_UP  &kp C_BRI_INC  &kp C_MUTE  &trans  &trans  &trans  &trans
-                &kp C_PP  &trans  &mo ADJ    &kp DE_TILDE  &kp DE_APOS  &kp DE_CARET
+                &kp C_PP  &trans  &mo ADJ    &kp DE_TILDE  &trans  &kp DE_CARET
             >;
         };
 
