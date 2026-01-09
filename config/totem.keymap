@@ -198,25 +198,18 @@
 
     keymap {
         compatible = "zmk,keymap";
-        // Keymap: BASE, NAV, SYM, ADJ, TVP Layers
-
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 
         base_layer {
             label = "BASE (QWERTZ)";
-            // NOTE: Physical keys are US layout - OS remaps to DE (QWERTZ)
-            // Y↔Z swap is handled by OS German layout
             bindings = <
-                             &kp Q  &kp W              &kp E            &kp R              &kp T        &kp Y    &kp U              &kp I            &kp O             &kp P
-                             &kp A  &mt_shift_left LALT S &mt_left LGUI D &mt_shift_left LSHIFT F &kp G        &kp H    &mt_shift_right LSHIFT J &mt_right LGUI K &mt_shift_right LALT L &kp DE_OE
-&mt_all LEFT_CONTROL ESCAPE  &kp Z  &kp X              &kp C            &kp V              &kp B        &kp N    &kp M              &kp COMMA        &kp DOT           &kp DE_MINUS   &mt_all RCTRL DE_AE
-            // Thumb Keys (Daumentasten)
-                                                       &kp BACKSPACE    &lt NAV DE_SS
-                                                       &kp SPACE        &kp TAB
-                                                       &lt SYM DE_UE      &kp DELETE
+                &kp Q  &kp W  &kp E  &kp R  &kp T    &kp Y  &kp U  &kp I  &kp O  &kp P
+                &kp A  &mt_shift_left LALT S  &mt_left LGUI D  &mt_shift_left LSHIFT F  &kp G    &kp H  &mt_shift_right LSHIFT J  &mt_right LGUI K  &mt_shift_right LALT L  &kp DE_OE
+                &mt_all LEFT_CONTROL ESCAPE  &kp Z  &kp X  &kp C  &kp V  &kp B    &kp N  &kp M  &kp COMMA  &kp DOT  &kp DE_MINUS  &mt_all RCTRL DE_AE
+                &kp BACKSPACE  &lt NAV DE_SS
+                &kp SPACE  &kp TAB
+                &lt SYM DE_UE  &kp DELETE
             >;
         };
-
 
         nav_layer {
             label = "NAV / NUM";
@@ -224,54 +217,47 @@
                 &kp DE_CARET  &kp DE_PERCENT  &kp UP  &kp DE_HASH  &kp DE_TILDE    &trans  &kp N7  &kp N8  &kp N9  &kp DE_ASTR
                 &trans  &kp LEFT_ARROW  &kp DOWN  &kp RIGHT_ARROW  &kp DE_PLUS      &trans  &kp N4  &kp N5  &kp N6  &kp DE_MINUS
                 &trans  &trans  &kp PG_UP  &kp DOWN  &kp PG_DN  &trans             &trans  &kp N1  &kp N2  &kp N3  &kp DE_EQUAL  &trans
-                                &trans  &trans  &trans                &kp PERIOD  &kp COMMA  &kp KP_DOT
+                &trans  &trans  &trans    &kp PERIOD  &kp COMMA  &kp KP_DOT
             >;
         };
 
-        
         sim_layer {
-            label = "SYM (Symbole & Media)";
-            // Klammern: [ ] ( ) { } - nur in der Mitte (Reihe 2)
+            label = "SYM";
             bindings = <
-        &kp DE_EXCL     &kp DE_AT       &kp DE_HASH     &kp DE_DLRO     &kp DE_PERCENT         &trans       &trans           &trans        &trans        &kp DE_DQUO
-        &kp DE_LBKT     &kp DE_RBKT     &kp DE_LPAR     &kp DE_RPAR     &kp DE_LBRC            &kp DE_RBRC  &trans           &trans        &trans        &trans
-&trans  &kp C_BRI_DEC   &kp C_VOL_DN    &kp C_VOL_UP    &kp C_BRI_INC   &kp C_MUTE             &trans       &trans           &trans        &trans        &trans        &trans
-                               &kp C_PP        &trans          &mo ADJ                    &kp DE_TILDE &kp DE_APOS      &kp DE_CARET
+                &kp DE_EXCL  &kp DE_AT  &kp DE_HASH  &kp DE_DLRO  &kp DE_PERCENT    &trans  &trans  &trans  &trans  &kp DE_DQUO
+                &kp DE_LBKT  &kp DE_RBKT  &kp DE_LPAR  &kp DE_RPAR  &kp DE_LBRC       &kp DE_RBRC  &trans  &trans  &trans  &trans
+                &trans  &kp C_BRI_DEC  &kp C_VOL_DN  &kp C_VOL_UP  &kp C_BRI_INC  &kp C_MUTE    &trans  &trans  &trans  &trans  &trans  &trans
+                &kp C_PP  &trans  &mo ADJ    &kp DE_TILDE  &kp DE_APOS  &kp DE_CARET
             >;
         };
-
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 
         adjust_layer {
             label = "ADJ";
             bindings = <
-        &sys_reset   &bt BT_CLR  &out OUT_TOG  &trans  &trans    &trans  &kp F7  &kp F8  &kp F9  &kp F12
-        &bootloader  &bt BT_NXT  &trans        &trans  &trans    &trans  &kp F4  &kp F5  &kp F6  &kp F11
-&trans  &trans       &bt BT_PRV  &trans        &trans  &trans    &trans  &kp F1  &kp F2  &kp F3  &kp F10  &trans
-                                 &trans        &trans  &trans    &trans  &trans  &trans
+                &sys_reset  &bt BT_CLR  &out OUT_TOG  &trans  &trans    &trans  &kp F7  &kp F8  &kp F9  &kp F12
+                &bootloader  &bt BT_NXT  &trans  &trans  &trans    &trans  &kp F4  &kp F5  &kp F6  &kp F11
+                &trans  &trans  &bt BT_PRV  &trans  &trans  &trans    &trans  &kp F1  &kp F2  &kp F3  &kp F10  &trans
+                &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
-
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-        // TVP Layers
 
         tvp1_layer {
             label = "TVP 1";
             bindings = <
-       &kp TAB     &kp I      &kp LC(LALT) &kp O        &kp LC(F20)    &trans  &none  &none  &none  &none
-       &lt TVP2 L  &kp LEFT   &kp LALT     &kp RIGHT    &kp SPACE      &trans  &none  &none  &none  &none
-&kp J  &kp LSHFT   &kp LC(C)  &kp BSPC     &kp LC(V)    &kp LC(F19)    &trans  &trans  &trans  &trans  &trans  &trans
-                              &trans       &kp LC(F14)  &kp LC(F13)    &trans  &trans  &trans
+                &kp TAB  &kp I  &kp LC(LALT)  &kp O  &kp LC(F20)    &trans  &none  &none  &none  &none
+                &lt TVP2 L  &kp LEFT  &kp LALT  &kp RIGHT  &kp SPACE      &trans  &none  &none  &none  &none
+                &kp J  &kp LSHFT  &kp LC(C)  &kp BSPC  &kp LC(V)  &kp LC(F19)    &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &kp LC(F14)  &kp LC(F13)    &trans  &trans  &trans
             >;
         };
 
         tvp2_layer {
             label = "TVP 2";
             bindings = <
-        &kp LC(F18)  &kp LS(I)     &kp LS(HOME) &kp LS(O)      &kp LS(F)       &trans  &kp F7  &kp F8  &kp F9  &kp F12
-        &trans       &kp LS(LEFT)  &kp LC(F17)  &kp LS(RIGHT)  &kp RET         &trans  &kp F4  &kp F5  &kp F6  &kp F11
-&trans  &kp J        &kp LS(C)     &kp LC(F16)  &kp LS(V)      &kp LC(F15)     &trans  &trans  &trans  &trans  &trans  &trans
-                                   &trans       &kp LC(F12)    &kp LC(F11)     &trans  &trans  &trans
+                &kp LC(F18)  &kp LS(I)  &kp LS(HOME)  &kp LS(O)  &kp LS(F)       &trans  &kp F7  &kp F8  &kp F9  &kp F12
+                &trans  &kp LS(LEFT)  &kp LC(F17)  &kp LS(RIGHT)  &kp RET         &trans  &kp F4  &kp F5  &kp F6  &kp F11
+                &trans  &kp J  &kp LS(C)  &kp LC(F16)  &kp LS(V)  &kp LC(F15)     &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &kp LC(F12)  &kp LC(F11)     &trans  &trans  &trans
             >;
         };
     };
