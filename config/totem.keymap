@@ -223,7 +223,7 @@
             bindings = <
            &kp DE_CARET   &kp DE_PERCENT   &kp UP       &kp DE_HASH      &kp DE_TILDE       &trans       &kp N7    &kp N8    &kp N9    &kp DE_ASTR
            &trans         &kp LEFT_ARROW   &kp DOWN     &kp RIGHT_ARROW  &kp DE_PLUS        &trans       &kp N4    &kp N5    &kp N6    &kp DE_MINUS
-&kp DE_EURO &trans       &kp PG_UP        &kp LG(DOWN) &kp PG_DN        &trans             &trans       &kp N1    &kp N2    &kp N3    &kp DE_EQUAL  &trans
+&kp DE_EURO &trans       &kp PG_UP        &kp DOWN     &kp PG_DN        &trans             &trans       &kp N1    &kp N2    &kp N3    &kp DE_EQUAL  &trans
                                           &trans       &trans           &trans             &kp PERIOD   &kp COMMA &kp KP_DOT
             >;
         };
