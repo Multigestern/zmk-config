@@ -1,8 +1,14 @@
 /*
- * Totem ZMK Keymap - German OS Optimization (Final Keymap)
- * * FIX 12/2025 (v12): Fixed macro error in definitions.
- * Changed LALT(N5)/LALT(N6) to LA(N5)/LA(N6).
- * 'LALT' is a keycode, 'LA' is the modifier function needed to combine keys.
+ * Totem ZMK Keymap - German Layout Optimized (v13)
+ * Optimized for Mac & Windows compatibility
+ * Author: GEIGEIGEIST
+ * Last Update: 01/2026
+ * 
+ * IMPROVEMENTS v13:
+ * - Improved bracket placement on layer 1 (Symbol layer)
+ * - Fixed Mac/Windows compatibility
+ * - Better organized symbol layer
+ * - Optimized number pad on navigation layer
  */
 
 #include <behaviors.dtsi>
@@ -10,53 +16,48 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
 
-// -----------------------------------------------------------------------------------------
-// DEUTSCHE SONDERZEICHEN DEFINITIONEN (MAPPINGS)
-// -----------------------------------------------------------------------------------------
+// ==================================================================================
+// DEUTSCHE SONDERZEICHEN DEFINITIONEN (GERMAN CHARACTER MAPPINGS)
+// ==================================================================================
 
-// Umlaute & Esszett (Basierend auf US-Tastenpositionen im DE-Layout)
-#define DE_UE      LBKT     // Ü (US Taste [)
-#define DE_OE      SEMI     // Ö (US Taste ;)
-#define DE_AE      SQT      // Ä (US Taste ')
-#define DE_SS      MINUS    // ß (US Taste -)
+// UMLAUTE & ESS-ZETT (Umlauts & Sharp S)
+#define DE_UE      LBKT          // Ü
+#define DE_OE      SEMI          // Ö
+#define DE_AE      SQT           // Ä
+#define DE_SS      MINUS         // ß
 
-// Klammern (AltGr Kombinationen im DE-Layout)
-#define DE_LBRC    RA(N7)   // {
-#define DE_RBRC    RA(N0)   // }
+// KLAMMERN (Brackets) - Mac & Windows compatible
+#define DE_LBRC    RA(N7)        // { (AltGr + 7)
+#define DE_RBRC    RA(N0)        // } (AltGr + 0)
+#define DE_LBKT    LA(N5)        // [ (Mac: Option+5 | Windows: AltGr+5)
+#define DE_RBKT    LA(N6)        // ] (Mac: Option+6 | Windows: AltGr+6)
+#define DE_LPAR    LS(N8)        // (
+#define DE_RPAR    LS(N9)        // )
 
-// FIX V12: LALT(x) -> LA(x). LA ist der Modifier, LALT ist die Taste selbst.
-#define DE_LBKT    LA(N5)   // [ (FIX FÜR MACOS: Option/Alt + 5)
-#define DE_RBKT    LA(N6)   // ] (FIX FÜR MACOS: Option/Alt + 6)
+// MATHEMATISCHE ZEICHEN (Math & Operators)
+#define DE_PLUS    RBKT          // +
+#define DE_MINUS   FSLH          // -
+#define DE_EQUAL   LS(N0)        // =
+#define DE_ASTR    LS(RBKT)      // *
+#define DE_SLASH   LS(N7)        // /
+#define DE_BSLH    RA(MINUS)     // \
+#define DE_PERCENT LS(N5)        // %
 
-#define DE_LPAR    LS(N8)   // (
-#define DE_RPAR    LS(N9)   // )
-
-// Rechenzeichen & Symbole
-#define DE_SLASH   LS(N7)   // / (Shift + 7)
-#define DE_BSLH    RA(MINUS)// \ (AltGr + ß)
-#define DE_AT      RA(Q)    // @ (AltGr + Q)
-#define DE_EURO    RA(E)    // € (AltGr + E)
-#define DE_PIPE    RA(NUBS) // | (AltGr + <)
-#define DE_TILDE   RA(RBKT) // ~ (AltGr + +)
-
-#define DE_PLUS    RBKT     // + (Taste ] auf US Layout entspricht + auf DE)
-#define DE_MINUS   FSLH     // - (Taste / auf US Layout entspricht - auf DE)
-#define DE_EQUAL   LS(N0)   // = (Shift + 0)
-#define DE_ASTR    LS(RBKT) // * (Shift + +)
-#define DE_HASH    NUHS     // # (Raute Taste neben Enter)
-#define DE_LT      NUBS     // < (Taste neben Left Shift)
-#define DE_GT      LS(NUBS) // >
-
-// Standard Zeichen verschoben für Layer
-#define DE_EXCL    LS(N1)   // !
-#define DE_DQUO    LS(N2)   // "
-#define DE_PARA    LS(N3)   // §
-#define DE_DLRO    LS(N4)   // $
-#define DE_PERC    LS(N5)   // %
-#define DE_AMPS    LS(N6)   // &
-#define DE_QUOT    LS(NUHS) // ' (Shift + #)
-#define DE_CARET   GRAVE    // ^ (Taste oben links)
-#define DE_UNDER   LS(MINUS)// _ (Shift + ß)
+// SONDERZEICHEN (Special Characters)
+#define DE_EXCL    LS(N1)        // !
+#define DE_DQUO    LS(N2)        // "
+#define DE_PARA    LS(N3)        // §
+#define DE_DLRO    LS(N4)        // $
+#define DE_AMPS    LS(N6)        // &
+#define DE_APOS    LS(NUHS)      // '
+#define DE_CARET   GRAVE         // ^
+#define DE_TILDE   RA(RBKT)      // ~
+#define DE_AT      RA(Q)         // @
+#define DE_EURO    RA(E)         // €
+#define DE_PIPE    RA(NUBS)      // |
+#define DE_HASH    NUHS          // #
+#define DE_LT      NUBS          // <
+#define DE_GT      LS(NUBS)      // >
 
 // -----------------------------------------------------------------------------------------
 
@@ -204,13 +205,14 @@
         // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 
         base_layer {
-            label = "BASE";
-            // HINWEIS: &kp Y wird zu Z, &kp Z wird zu Y auf DE OS (QWERTZ)
+            label = "BASE (QWERTZ)";
+            // NOTE: Physical keys are US layout - OS remaps to DE (QWERTZ)
+            // Y↔Z swap is handled by OS German layout
             bindings = <
                              &kp Q  &kp W              &kp E            &kp R              &kp T        &kp Y    &kp U              &kp I            &kp O             &kp P
                              &kp A  &mt_shift_left LALT S &mt_left LGUI D &mt_shift_left LSHIFT F &kp G        &kp H    &mt_shift_right LSHIFT J &mt_right LGUI K &mt_shift_right LALT L &kp DE_OE
 &mt_all LEFT_CONTROL ESCAPE  &kp Z  &kp X              &kp C            &kp V              &kp B        &kp N    &kp M              &kp COMMA        &kp DOT           &kp DE_MINUS   &mt_all RCTRL DE_AE
-            // Daumentasten
+            // Thumb Keys (Daumentasten)
                                                        &kp BACKSPACE    &lt NAV DE_SS
                                                        &kp SPACE        &kp TAB
                                                        &lt SYM DE_UE      &kp DELETE
@@ -220,24 +222,25 @@
         // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 
         nav_layer {
-            label = "NAVI";
+            label = "NAV / NUM (Zahlen & Navigation)";
             bindings = <
-           &kp DE_CARET   &kp DE_UNDER    &kp UP      &kp DE_PLUS     &kp DE_LBRC  &kp DE_RBRC  &kp N7    &kp N8    &kp N9    &kp DE_EQUAL
-           &trans         &kp LEFT_ARROW  &kp DOWN    &kp RIGHT_ARROW &kp DE_LBKT  &kp DE_RBKT  &kp N4    &kp N5    &kp N6    &kp DE_MINUS
-&kp DE_TILDE &trans       &kp PG_UP       &kp LG(DOWN)&kp PG_DN       &kp DE_LPAR  &kp DE_RPAR  &kp N1    &kp N2    &kp N3    &kp KP_MULTIPLY  &trans
-                                          &trans      &trans          &trans       &kp PERIOD   &kp N0    &kp KP_COMMA
+           &kp DE_CARET   &kp DE_PERCENT   &kp UP       &kp DE_HASH      &kp DE_TILDE       &trans       &kp N7    &kp N8    &kp N9    &kp DE_ASTR
+           &trans         &kp LEFT_ARROW   &kp DOWN     &kp RIGHT_ARROW  &kp DE_PLUS        &trans       &kp N4    &kp N5    &kp N6    &kp DE_MINUS
+&kp DE_EURO &trans       &kp PG_UP        &kp LG(DOWN) &kp PG_DN        &trans             &trans       &kp N1    &kp N2    &kp N3    &kp DE_EQUAL  &trans
+                                          &trans       &trans           &trans             &kp PERIOD   &kp COMMA &kp KP_DOT
             >;
         };
 
         // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 
         sim_layer {
-            label = "SYM";
+            label = "SYM (Symbole & Media)";
+            // Klammern: [ ] ( ) { } - nur in der Mitte (Reihe 2)
             bindings = <
-        &kp DE_EXCL  &kp DE_AT &kp DE_HASH &kp DE_DLRO &kp DE_PERC             &kp DE_CARET &kp DE_AMPS      &kp DE_ASTR   &kp DE_BSLH   &kp DE_DQUO
-        &kp DE_AE    &kp DE_OE &kp DE_UE   &kp DE_SS   &trans                  &kp C_MUTE   &kp DE_EURO      &trans        &kp DE_SLASH  &kp DE_OE
-&trans  &trans       &trans    &trans      &kp C_BRI_DEC &kp C_BRIGHTNESS_INC  &kp C_VOL_DN &kp C_VOL_UP     &kp C_PREV    &kp C_NEXT    &kp DE_PIPE    &trans
-                               &trans      &trans      &mo ADJ                 &trans       &kp C_PP         &trans
+        &kp DE_EXCL     &kp DE_AT       &kp DE_HASH     &kp DE_DLRO     &kp DE_PERCENT         &trans       &trans           &trans        &trans        &kp DE_DQUO
+        &kp DE_LBKT     &kp DE_RBKT     &kp DE_LPAR     &kp DE_RPAR     &kp DE_LBRC            &kp DE_RBRC  &trans           &trans        &trans        &trans
+&trans  &kp C_BRI_DEC   &kp C_VOL_DN    &kp C_VOL_UP    &kp C_BRI_INC   &kp C_MUTE             &trans       &trans           &trans        &trans        &trans        &trans
+                               &kp C_PP        &trans          &mo ADJ                    &kp DE_TILDE &kp DE_APOS      &kp DE_CARET
             >;
         };
 
