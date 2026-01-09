@@ -89,21 +89,18 @@
             bindings = <&kp DE_TILDE>;
             key-positions = <0 20>;
             timeout-ms = <60>;
-            require-prior-idle-ms = ;
         };
 
         enter_combo {
             bindings = <&kp ENTER>;
             key-positions = <13 12 11>;
             timeout-ms = <70>;
-            require-prior-idle-ms = ;
         };
 
         enter_right_combo {
             bindings = <&kp ENTER>;
             key-positions = <16 18 17>;
             timeout-ms = <70>;
-            require-prior-idle-ms = ;
         };
     };
 
