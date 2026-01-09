@@ -1,14 +1,9 @@
 /*
- * Totem ZMK Keymap - German Layout Optimized (v13)
- * Optimized for Mac & Windows compatibility
- * Author: GEIGEIGEIST
- * Last Update: 01/2026
+ * Totem ZMK Keymap - German OS Optimization
+ * Optimized for Mac & Windows compatibility with 3 thumb keys per side
  * 
- * IMPROVEMENTS v13:
- * - Improved bracket placement on layer 1 (Symbol layer)
- * - Fixed Mac/Windows compatibility
- * - Better organized symbol layer
- * - Optimized number pad on navigation layer
+ * LAYOUT: 5 keys + ESC/CTRL per row + 3 thumb keys per side
+ * Klammern ONLY in Layer 2 (SYM), middle row
  */
 
 #include <behaviors.dtsi>
@@ -26,7 +21,7 @@
 #define DE_AE      SQT           // Ä
 #define DE_SS      MINUS         // ß
 
-// KLAMMERN (Brackets) - Mac & Windows compatible
+// KLAMMERN (Brackets) - Mac & Windows compatible - ONLY for Layer 2
 #define DE_LBRC    RA(N7)        // { (AltGr + 7)
 #define DE_RBRC    RA(N0)        // } (AltGr + 0)
 #define DE_LBKT    LA(N5)        // [ (Mac: Option+5 | Windows: AltGr+5)
@@ -37,13 +32,28 @@
 // MATHEMATISCHE ZEICHEN (Math & Operators)
 #define DE_PLUS    RBKT          // +
 #define DE_MINUS   FSLH          // -
+#define DE_EQUAL   LS(N0)        // =
+#define DE_ASTR    LS(RBKT)      // *
+#define DE_SLASH   LS(N7)        // /
+#define DE_BSLH    RA(MINUS)     // \
+#define DE_PERCENT LS(N5)        // %
 
 // SONDERZEICHEN (Special Characters)
+#define DE_EXCL    LS(N1)        // !
+#define DE_DQUO    LS(N2)        // "
+#define DE_PARA    LS(N3)        // §
+#define DE_DLRO    LS(N4)        // $
+#define DE_AMPS    LS(N6)        // &
+#define DE_APOS    LS(NUHS)      // '
 #define DE_CARET   GRAVE         // ^
 #define DE_TILDE   RA(RBKT)      // ~
+#define DE_AT      RA(Q)         // @
+#define DE_EURO    RA(E)         // €
+#define DE_PIPE    RA(NUBS)      // |
 #define DE_HASH    NUHS          // #
 #define DE_LT      NUBS          // <
 #define DE_GT      LS(NUBS)      // >
+#define DE_UNDER   LS(MINUS)     // _
 
 // -----------------------------------------------------------------------------------------
 
@@ -117,7 +127,7 @@
             require-prior-idle-ms = <50>;
             hold-trigger-on-release;
             hold-trigger-key-positions = <0 1 4 10 11 12 13 14 20 21 22 23 24 25 2 35 36 37 3 32 33 34>;
-            };
+        };
 
         mt_thumb: mt_thumb {
             compatible = "zmk,behavior-hold-tap";
@@ -189,9 +199,9 @@
             label = "BASE";
             bindings = <
                 &kp Q  &kp W  &kp E  &kp R  &kp T         &kp Y  &kp U  &kp I  &kp O  &kp P
-                &kp A  &kp S  &kp D  &kp F  &kp G         &kp H  &kp J  &kp K  &kp L  &kp DE_OE
-                &kp Z  &kp X  &kp C  &kp V  &kp B         &kp N  &kp M  &kp COMMA  &kp DOT  &kp DE_MINUS
-                &kp BACKSPACE  &lt NAV DE_SS  &kp SPACE  &kp TAB  &lt SYM DE_UE  &kp DELETE
+                &kp A  &mt_shift_left LALT S  &mt_left LGUI D  &mt_shift_left LSHIFT F  &kp G         &kp H  &mt_shift_right LSHIFT J  &mt_right LGUI K  &mt_shift_right LALT L  &kp DE_OE
+                &mt_all LEFT_CONTROL ESCAPE  &kp Z  &kp X  &kp C  &kp V  &kp B         &kp N  &kp M  &kp COMMA  &kp DOT  &kp DE_MINUS  &mt_all RCTRL DE_AE
+                &kp BACKSPACE  &lt NAV DE_SS  &kp SPACE    &kp TAB  &lt SYM DE_UE  &kp DELETE
             >;
         };
 
@@ -208,7 +218,7 @@
         sim_layer {
             label = "SYM";
             bindings = <
-                &trans  &trans  &kp DE_HASH  &trans  &trans    &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
                 &kp DE_LBKT  &kp DE_RBKT  &kp DE_LPAR  &kp DE_RPAR  &kp DE_LBRC       &kp DE_RBRC  &trans  &trans  &trans  &trans
                 &trans  &kp C_BRI_DEC  &kp C_VOL_DN  &kp C_VOL_UP  &kp C_BRI_INC  &kp C_MUTE  &trans  &trans  &trans  &trans
                 &kp C_PP  &trans  &mo ADJ    &kp DE_TILDE  &trans  &kp DE_CARET
