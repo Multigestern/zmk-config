@@ -21,11 +21,11 @@
 #define DE_AE      SQT           // Ä
 #define DE_SS      MINUS         // ß
 
-// KLAMMERN (Brackets) - Mac & Windows compatible - ONLY for Layer 2
-#define DE_LBRC    RA(N7)        // { (AltGr + 7)
-#define DE_RBRC    RA(N0)        // } (AltGr + 0)
-#define DE_LBKT    LA(N5)        // [ (Mac: Option+5 | Windows: AltGr+5)
-#define DE_RBKT    LA(N6)        // ] (Mac: Option+6 | Windows: AltGr+6)
+// KLAMMERN (Brackets) - German macOS optimized for Layer 2
+#define DE_LBRC    LA(N8)        // { (Option+8)
+#define DE_RBRC    LA(N9)        // } (Option+9)
+#define DE_LBKT    LA(N5)        // [ (Option+5)
+#define DE_RBKT    LA(N6)        // ] (Option+6)
 #define DE_LPAR    LS(N8)        // (
 #define DE_RPAR    LS(N9)        // )
 
@@ -35,7 +35,7 @@
 #define DE_EQUAL   LS(N0)        // =
 #define DE_ASTR    LS(RBKT)      // *
 #define DE_SLASH   LS(N7)        // /
-#define DE_BSLH    RA(MINUS)     // \
+#define DE_BSLH    LA(LS(N7))    // \ (Option+Shift+7)
 #define DE_PERCENT LS(N5)        // %
 
 // SONDERZEICHEN (Special Characters)
@@ -46,10 +46,10 @@
 #define DE_AMPS    LS(N6)        // &
 #define DE_APOS    LS(NUHS)      // '
 #define DE_CARET   GRAVE         // ^
-#define DE_TILDE   RA(RBKT)      // ~
-#define DE_AT      RA(Q)         // @
-#define DE_EURO    RA(E)         // €
-#define DE_PIPE    RA(NUBS)      // |
+#define DE_TILDE   LA(N)         // ~ (dead key on macOS)
+#define DE_AT      LA(L)         // @ (Option+L)
+#define DE_EURO    LA(E)         // € (Option+E)
+#define DE_PIPE    LA(N7)        // | (Option+7)
 #define DE_HASH    NUHS          // #
 #define DE_LT      NUBS          // <
 #define DE_GT      LS(NUBS)      // >
@@ -218,10 +218,10 @@
         sim_layer {
             label = "SYM";
             bindings = <
-                &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
-                &trans  &trans  &trans  &trans  &trans       &trans  &trans  &trans  &trans  &trans
-                &trans  &kp C_BRI_DEC  &kp C_VOL_DN  &kp C_VOL_UP  &kp C_BRI_INC  &kp C_MUTE  &trans  &trans  &trans  &trans
-                &kp C_PP  &trans  &mo ADJ    &kp DE_TILDE  &trans  &kp DE_CARET
+                &kp DE_EXCL  &kp DE_DQUO  &kp DE_PARA  &kp DE_DLRO  &kp DE_PERCENT    &kp DE_AMPS  &kp DE_SLASH  &kp DE_LPAR  &kp DE_RPAR  &kp DE_EQUAL
+                &kp DE_AE    &kp DE_OE    &kp DE_UE    &kp DE_SS    &kp DE_PLUS       &kp DE_MINUS &kp DE_UNDER  &kp DE_LBKT  &kp DE_RBKT  &kp DE_PIPE
+                &trans       &kp DE_AT    &kp DE_EURO  &kp DE_HASH  &kp DE_BSLH       &kp DE_LBRC  &kp DE_RBRC   &kp DE_LT    &kp DE_GT    &kp DE_ASTR  &trans  &trans
+                &kp C_PP     &trans       &mo ADJ      &kp DE_TILDE &trans            &kp DE_CARET
             >;
         };
 
